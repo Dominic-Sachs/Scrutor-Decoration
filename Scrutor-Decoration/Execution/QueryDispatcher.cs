@@ -11,7 +11,7 @@ public sealed class QueryDispatcher : IQueryDispatcher
         _serviceProvider = serviceProvider;
     }
 
-    public Task<TResponse> HandleAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default)
+    public Task<TResponse> HandleAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default) where TQuery : Query<TResponse>
     {
         var handler = _serviceProvider.GetRequiredService<IQueryHandlerAsync<TQuery, TResponse>>();
 

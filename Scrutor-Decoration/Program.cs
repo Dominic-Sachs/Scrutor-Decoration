@@ -18,19 +18,22 @@ internal static class Program
                 .AddClasses(static c => c.AssignableTo(typeof(ICommandHandlerAsync<>)))
                 .AsImplementedInterfaces()
                 .WithScopedLifetime()
+                .AddClasses(static c => c.AssignableTo(typeof(ICommandHandlerAsync<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime()
         );
 
         services.Decorate(typeof(ICommandHandlerAsync<>), typeof(LoggerCommandHandlerDecorator<>));
         services.Decorate(typeof(IQueryHandlerAsync<,>), typeof(LoggerQueryHandlerDecorator<,>));
+        services.Decorate(typeof(ICommandHandlerAsync<,>), typeof(LoggerCommandHandlerDecorator<,>));
         services.AddScoped<IQueryDispatcher, QueryDispatcher>();
         services.AddScoped<ICommandDispatcher, CommandDispatcher>();
         services.AddLogging();
 
         var serviceProvider = services.BuildServiceProvider();
-
         var dispatcher = serviceProvider.GetRequiredService<IQueryDispatcher>();
 
-        var result = await dispatcher.HandleAsync<HelloQuery, string>(new HelloQuery("World"));
+        var result = await dispatcher.HandleAsync<HelloQuery, string>(new HelloQuery(new(Guid.NewGuid()), "World"));
 
         Console.WriteLine(result);
     }

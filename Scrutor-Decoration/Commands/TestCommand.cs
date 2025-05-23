@@ -1,8 +1,8 @@
 ﻿namespace Scrutor_Decoration.Commands;
 
-public sealed class TestCommand
+public sealed class TestCommand : Command
 {
-    public TestCommand(string text)
+    public TestCommand(Context context, string text) : base(context)
     {
         Text = text;
     }

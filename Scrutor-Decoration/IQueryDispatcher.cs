@@ -2,5 +2,5 @@
 
 public interface IQueryDispatcher
 {
-    Task<TResponse> HandleAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default);
+    Task<TResponse> HandleAsync<TQuery, TResponse>(TQuery query, CancellationToken cancellationToken = default) where TQuery : Query<TResponse>;
 }

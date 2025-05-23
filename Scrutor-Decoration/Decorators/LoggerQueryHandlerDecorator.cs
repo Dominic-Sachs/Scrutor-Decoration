@@ -2,7 +2,7 @@
 
 namespace Scrutor_Decoration.Decorators;
 
-public sealed class LoggerQueryHandlerDecorator<TQuery, TResult> : IQueryHandlerAsync<TQuery, TResult>
+public sealed class LoggerQueryHandlerDecorator<TQuery, TResult> : IQueryHandlerAsync<TQuery, TResult> where TQuery : Query<TResult>
 {
     private readonly IQueryHandlerAsync<TQuery, TResult> _handler;
     private readonly ILogger<LoggerQueryHandlerDecorator<TQuery, TResult>> _logger;

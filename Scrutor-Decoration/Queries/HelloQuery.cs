@@ -1,8 +1,8 @@
 ﻿namespace Scrutor_Decoration.Queries;
 
-public sealed class HelloQuery
+public sealed class HelloQuery : Query<string>
 {
-    public HelloQuery(string name)
+    public HelloQuery(Context context, string name) : base(context)
     {
         Name = name;
     }
